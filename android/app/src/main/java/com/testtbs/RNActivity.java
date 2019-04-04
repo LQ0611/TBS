@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.lq0611.tbs.FullScreenActivity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -51,6 +52,20 @@ public class RNActivity extends ReactContextBaseJavaModule{
             FileDisplayActivity.show(currentActivity, filePath);
             //Intent intent = new Intent(currentActivity,UrlActivity.class);
             //currentActivity.startActivity(intent);
+        }
+    }
+
+    @ReactMethod
+    public void showVideo(String videoUrl){
+        Activity currentActivity = getCurrentActivity();
+        if(null!=currentActivity){
+            //Class aimActivity = Class.forName(name);
+
+            Intent intent = new Intent(currentActivity,FullScreenActivity.class);
+            intent.putExtra("videoUrl",videoUrl);
+            currentActivity.startActivity(intent);
+            //Toast.makeText(mContext, "RNActivity", Toast.LENGTH_SHORT).show();
+
         }
     }
 

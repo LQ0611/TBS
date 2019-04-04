@@ -6,6 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "antd-mobile-rn": "^2.3.3",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.4"
   },

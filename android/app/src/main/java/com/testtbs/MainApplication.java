@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Application;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,23 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
 
     //Tbs  增加这句话
-    QbSdk.initX5Environment(this,null);
+    //QbSdk.PreInitCallback cb =
+    //x5内核初始化接口
+    QbSdk.initX5Environment(getApplicationContext(),  new QbSdk.PreInitCallback() {
+
+      @Override
+      public void onViewInitFinished(boolean arg0) {
+        // TODO Auto-generated method stub
+        //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+        Log.d("app", " onViewInitFinished is " + arg0);
+      }
+
+      @Override
+      public void onCoreInitFinished() {
+        // TODO Auto-generated method stub
+      }
+    });
+    //QbSdk.initX5Environment(this,null);
     QbSdk.setDownloadWithoutWifi(true);
     ExceptionHandler.getInstance().initConfig(this);
 

@@ -15,45 +15,60 @@ import {
     ScrollView,
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {Icon,TabBar,SearchBar} from 'antd-mobile-rn';
+import File from './RNCode/screen/File';
+import Video from './RNCode/screen/Video';
 
 type Props = {};
 export default class App extends Component<Props> {
 
-    call_button(filePath){
-        NativeModules.RNActivity.show(filePath);
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            selectedTab: 'video',
+        };
+    }
+
+    onChangeTab(tabName: any) {
+        this.setState({
+            selectedTab: tabName,
+        });
+    }
+
+    renderContent(pageText: any) {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+                <SearchBar placeholder="Search" showCancelButton />
+                <Text style={{ margin: 50 }}>{pageText}</Text>
+            </View>
+        );
     }
 
   render() {
-      let file3 = "http://grad.cnu.edu.cn/docs/2019-04/20190403003048351438.pdf";
+
       return (
-
-      <View style={styles.container}>
-
-
-          <View style={{alignItems:'center',marginBottom:20}}>
-              <Text style={{fontSize:30,color:'#333333',}}
-                    onPress={()=>this.call_button(file3)}   //add
+          <TabBar
+              unselectedTintColor="#949494"
+              tintColor="#33A3F4"
+              barTintColor="#f5f5f5"
+          >
+              <TabBar.Item
+                  title="file"
+                  icon={<Icon name="home" />}
+                  selected={this.state.selectedTab === 'file'}
+                  onPress={() => this.onChangeTab('file')}
               >
-                  文件3 pdf 测试
-              </Text>
-          </View>
-
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+                  <File/>
+              </TabBar.Item>
+              <TabBar.Item
+                  icon={<Icon name='ordered-list' />}
+                  title="video"
+                  selected={this.state.selectedTab === 'video'}
+                  onPress={() => this.onChangeTab('video')}
+              >
+                  <Video/>
+              </TabBar.Item>
+          </TabBar>
 
     );
   }
