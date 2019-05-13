@@ -18,7 +18,7 @@ import {
 import {Icon,TabBar,SearchBar} from 'antd-mobile-rn';
 import File from './RNCode/screen/File';
 import Video from './RNCode/screen/Video';
-
+import H5 from './RNCode/screen/Video_H5';
 type Props = {};
 export default class App extends Component<Props> {
 
@@ -67,6 +67,14 @@ export default class App extends Component<Props> {
                   onPress={() => this.onChangeTab('video')}
               >
                   <Video/>
+              </TabBar.Item>
+              <TabBar.Item
+                  icon={<Icon name='ordered-list' />}
+                  title="H5"
+                  selected={this.state.selectedTab === 'H5'}
+                  onPress={() => this.onChangeTab('H5')}
+              >
+                  <H5/>
               </TabBar.Item>
           </TabBar>
 
